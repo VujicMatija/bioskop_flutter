@@ -174,9 +174,43 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                          onPressed: submit,
-                          child: Text(isLogin ? 'Prijava' : 'Registracija')),
+                      Padding(
+                        padding: isLogin
+                            ? const EdgeInsets.only(right: 40)
+                            : const EdgeInsets.only(right: 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (isLogin)
+                              IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.of(context)
+                                                        .pop(false),
+                                                child: const Text('OK'))
+                                          ],
+                                          title: const Text(
+                                            "Za adminska ovlascenja logujete se sa: \nadmin@admin.com \nsifra: adminadmin",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(Icons.info)),
+                            ElevatedButton(
+                                onPressed: submit,
+                                child:
+                                    Text(isLogin ? 'Prijava' : 'Registracija')),
+                          ],
+                        ),
+                      ),
                       TextButton(
                           onPressed: () {
                             setState(() {
